@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<meta name="format-detection" content="telephone=no" />
+<title>BORIH — The Art of Being</title>
+
+<!-- Google Fonts with display=swap for fallback -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+/* ── 변수 ── */
+:root {
+  --sage:        #8fa68a;
+  --sage-light:  #bccdb7;
+  --sage-deep:   #5d7a5a;
+  --cream:       #f5f1eb;
+  --warm-white:  #faf8f4;
+  --stone:       #d4cfc6;
+  --bark:        #8c7b6b;
+  --text-dark:   #2c2b28;
+  --text-mid:    #5a5750;
+  --text-light:  #9a9590;
+  --teal-dust:   #7a9e9a;
+
+  /* 안전한 폰트 스택 — 웹폰트 실패해도 잘 보이도록 */
+  --font-brand:  'Poppins', 'Apple SD Gothic Neo', sans-serif;
+  --font-body-en:'Inter', 'Apple SD Gothic Neo', sans-serif;
+  --font-ko:     'Noto Serif KR', 'Apple SD Gothic Neo', 'Malgun Gothic', serif;
+}
+
+/* ── 리셋 ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* iOS Safari 튕김 방지 */
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  background: var(--warm-white);
+  color: var(--text-dark);
+  font-family: var(--font-ko);
+  line-height: 1.8;
+  overflow-x: hidden;
+  /* iOS Safari 폰트 크기 자동 조절 방지 */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--sage-light); border-radius: 2px; }
+
+.en-brand { font-family: var(--font-brand); }
+.en-body  { font-family: var(--font-body-en); }
+
+.divider {
+  width: 48px;
+  height: 1px;
+  background: var(--sage);
+  margin: 24px 0;
+}
+
+/* ══ COVER ══ */
+.cover {
+  position: relative;
+  width: 100%;
+  /* iOS Safari 100vh 버그 대응 */
+  height: 100vh;
+  min-height: 600px;
+  background: linear-gradient(160deg,#7a9a72 0%,#8fa68a 25%,#9eb3a0 50%,#a8bfb0 70%,#b5c9bc 100%);
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cover::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 80% at 30% 50%, rgba(255,255,255,.18) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 70% 30%, rgba(255,255,255,.10) 0%, transparent 60%);
+}
+
+.cover-lines {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    175deg,
+    transparent 0px, transparent 18px,
+    rgba(255,255,255,.06) 18px, rgba(255,255,255,.06) 19px
+  );
+}
+
+.cover-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 24px;
+  width: 100%;
+}
+
+.cover-eyebrow {
+  font-family: var(--font-brand);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: .3em;
+  color: rgba(255,255,255,.75);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  animation: fadeUp 1s ease .2s both;
+}
+
+.cover-logo {
+  font-family: var(--font-brand);
+  font-size: clamp(60px, 18vw, 128px);
+  font-weight: 600;
+  letter-spacing: .18em;
+  color: #fff;
+  line-height: 1;
+  animation: fadeUp 1s ease .4s both;
+}
+
+.cover-sub {
+  font-family: var(--font-brand);
+  font-size: clamp(13px, 3.5vw, 16px);
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: .12em;
+  color: rgba(255,255,255,.85);
+  margin-top: 16px;
+  animation: fadeUp 1s ease .6s both;
+}
+
+.cover-tagline {
+  font-family: var(--font-ko);
+  font-size: clamp(12px, 3vw, 14px);
+  font-weight: 300;
+  color: rgba(255,255,255,.7);
+  margin-top: 40px;
+  letter-spacing: .04em;
+  line-height: 1.7;
+  animation: fadeUp 1s ease .8s both;
+}
+
+.cover-scroll {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  z-index: 2;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  align-items: center;
+  gap: 8px;
+  animation: fadeUp 1s ease 1.2s both;
+}
+
+.cover-scroll span {
+  font-family: var(--font-body-en);
+  font-size: 10px;
+  letter-spacing: .3em;
+  color: rgba(255,255,255,.5);
+  text-transform: uppercase;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(255,255,255,.5), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+/* ══ NAV ══ */
+.nav {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  /* iOS Safari backdrop-filter 대응 */
+  background: rgba(250,248,244,.95);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--stone);
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 60px;
+}
+
+.nav-logo {
+  font-family: var(--font-brand);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: .2em;
+  color: var(--sage-deep);
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: -webkit-flex;
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.nav-links::-webkit-scrollbar { display: none; }
+
+.nav-links a {
+  font-family: var(--font-ko);
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--text-mid);
+  text-decoration: none;
+  letter-spacing: .04em;
+  white-space: nowrap;
+  transition: color .3s;
+}
+.nav-links a:hover { color: var(--sage-deep); }
+
+/* ══ SECTION COMMONS ══ */
+section {
+  padding: 100px 48px;
+}
+
+.section-label {
+  font-family: var(--font-brand);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: var(--sage);
+}
+
+.section-title {
+  font-family: var(--font-ko);
+  font-size: clamp(26px, 5vw, 48px);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-dark);
+  margin-top: 16px;
+}
+
+.section-body {
+  font-family: var(--font-ko);
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--text-mid);
+  line-height: 2.1;
+  max-width: 560px;
+}
+.section-body em {
+  font-style: italic;
+  color: var(--sage-deep);
+}
+
+/* ══ BRAND INTRO ══ */
+.brand-intro-wrap {
+  background: var(--warm-white);
+  padding: 0;
+}
+
+.brand-intro {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  gap: 64px;
+  -webkit-align-items: center;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 48px;
+}
+
+/* 비주얼 — aspect-ratio 대신 padding-bottom 트릭 사용 (구형 안드로이드 대응) */
+.brand-intro__visual {
+  position: relative;
+  -webkit-flex: 0 0 auto;
+  flex: 0 0 auto;
+  width: 40%;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.brand-intro__visual-ratio {
+  width: 100%;
+  padding-bottom: 133%; /* 3:4 비율 */
+  position: relative;
+}
+.brand-intro__visual-inner {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 40% 60%, rgba(255,255,255,.2) 0%, transparent 70%),
+    linear-gradient(160deg, #7d9e78 0%, #9dbf9a 40%, #b5cfb2 100%);
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: flex-end;
+  align-items: flex-end;
+  padding: 32px;
+}
+.brand-intro__visual-text {
+  font-family: var(--font-brand);
+  font-size: 56px;
+  font-weight: 700;
+  color: rgba(255,255,255,.18);
+  letter-spacing: .1em;
+  line-height: 1;
+}
+.brand-intro__badge {
+  position: absolute;
+  top: 28px;
+  right: -20px;
+  background: var(--cream);
+  border: 1px solid var(--stone);
+  padding: 12px 20px;
+  font-family: var(--font-brand);
+  font-size: 10px;
+  letter-spacing: .18em;
+  color: var(--sage-deep);
+  text-transform: uppercase;
+  box-shadow: 0 8px 32px rgba(0,0,0,.06);
+  white-space: nowrap;
+}
+
+.brand-intro__text {
+  -webkit-flex: 1;
+  flex: 1;
+  min-width: 0;
+}
+
+.brand-intro__quote {
+  font-family: var(--font-ko);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--text-dark);
+  margin-bottom: 28px;
+  position: relative;
+  padding-left: 20px;
+}
+.brand-intro__quote::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px;
+  width: 3px; height: 60%;
+  background: var(--sage);
+}
+
+.brand-intro__keywords {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 28px;
+}
+.keyword-tag {
+  font-family: var(--font-body-en);
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--sage-deep);
+  padding: 6px 12px;
+  border: 1px solid var(--sage-light);
+  border-radius: 1px;
+}
+
+/* ══ BRAND VALUES ══ */
+.brand-values {
+  background: var(--sage-deep);
+  padding: 72px 48px;
+}
+.brand-values__grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 1px;
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.15);
+}
+.value-item {
+  background: var(--sage-deep);
+  padding: 36px 24px;
+  -webkit-flex: 1 1 160px;
+  flex: 1 1 160px;
+  min-width: 0;
+  transition: background .3s;
+}
+.value-item:hover { background: #4d6b4a; }
+.value-num {
+  font-family: var(--font-brand);
+  font-size: 11px;
+  color: rgba(255,255,255,.4);
+  letter-spacing: .3em;
+  margin-bottom: 16px;
+}
+.value-title {
+  font-family: var(--font-brand);
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: .04em;
+  margin-bottom: 10px;
+}
+.value-desc {
+  font-family: var(--font-ko);
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(255,255,255,.65);
+  line-height: 1.9;
+}
+
+/* ══ TEAM ══ */
+.team {
+  background: var(--cream);
+  padding: 100px 48px;
+}
+.team__header {
+  max-width: 1200px;
+  margin: 0 auto 72px;
+}
+
+.profile-full {
+  max-width: 1200px;
+  margin: 0 auto 56px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  gap: 56px;
+  padding: 48px;
+  background: var(--warm-white);
+  border: 1px solid var(--stone);
+  transition: box-shadow .3s;
+}
+.profile-full:last-child { margin-bottom: 0; }
+.profile-full:hover { box-shadow: 0 16px 48px rgba(0,0,0,.07); }
+
+.profile-full--alt {
+  -webkit-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+}
+
+.profile-full__photo-col {
+  -webkit-flex: 0 0 240px;
+  flex: 0 0 240px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* aspect-ratio 대신 padding-bottom 트릭 */
+.profile-photo-frame {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--stone);
+}
+.profile-photo-ratio {
+  width: 100%;
+  padding-bottom: 133%; /* 3:4 */
+  position: relative;
+}
+.profile-photo-placeholder {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  gap: 10px;
+}
+.photo-placeholder-text {
+  font-family: var(--font-brand);
+  font-size: 40px;
+  font-weight: 300;
+  color: rgba(255,255,255,.6);
+  letter-spacing: .1em;
+}
+.photo-upload-hint {
+  font-family: var(--font-ko);
+  font-size: 11px;
+  font-weight: 300;
+  color: rgba(255,255,255,.45);
+  letter-spacing: .1em;
+}
+
+.profile-full__sns-col {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  gap: 6px;
+}
+.sns-label {
+  font-family: var(--font-body-en);
+  font-size: 10px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 4px;
+}
+.sns-link {
+  font-family: var(--font-body-en);
+  font-size: 12px;
+  color: var(--teal-dust);
+  text-decoration: none;
+  letter-spacing: .04em;
+  transition: color .2s;
+}
+.sns-link:hover { color: var(--sage-deep); }
+
+.profile-full__info {
+  -webkit-flex: 1;
+  flex: 1;
+  min-width: 0;
+}
+
+.profile-full__header {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  gap: 16px;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.profile-full__name-ko {
+  font-family: var(--font-ko);
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--text-dark);
+  line-height: 1.2;
+}
+.profile-full__name-en {
+  font-family: var(--font-brand);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: .2em;
+  color: var(--sage);
+  margin-top: 6px;
+  text-transform: uppercase;
+}
+.profile-full__roles {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 6px;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+  -webkit-align-self: flex-start;
+  align-self: flex-start;
+  padding-top: 4px;
+}
+.role-badge {
+  font-family: var(--font-ko);
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--sage-deep);
+  border: 1px solid var(--sage-light);
+  padding: 4px 10px;
+  letter-spacing: .02em;
+  white-space: nowrap;
+}
+
+.profile-full__divider {
+  width: 100%;
+  height: 1px;
+  background: var(--stone);
+  margin: 20px 0;
+}
+.profile-section-block { margin-bottom: 24px; }
+.profile-section-title {
+  font-family: var(--font-body-en);
+  font-size: 10px;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+.profile-list {
+  list-style: none;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  gap: 7px;
+}
+.profile-list li {
+  font-family: var(--font-ko);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text-mid);
+  line-height: 1.7;
+  padding-left: 14px;
+  position: relative;
+}
+.profile-list li::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+  color: var(--sage-light);
+}
+.profile-list-sub {
+  display: block;
+  font-size: 11px;
+  color: var(--text-light);
+  margin-top: 2px;
+  letter-spacing: .02em;
+}
+.profile-list--two-col {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 6px 0;
+}
+.profile-list--two-col li {
+  width: 50%;
+}
+
+.profile-full__tags {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--stone);
+}
+.profile-tag {
+  font-family: var(--font-ko);
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--sage-deep);
+  background: rgba(143,166,138,.12);
+  padding: 4px 12px;
+  border-radius: 1px;
+}
+
+/* ══ PROGRAMS ══ */
+.programs {
+  background: var(--warm-white);
+  padding: 100px 48px;
+}
+.programs__header {
+  max-width: 1200px;
+  margin: 0 auto 72px;
+}
+.programs__grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: -webkit-flex;
+  display: flex;
+  gap: 24px;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.program-card {
+  -webkit-flex: 1 1 280px;
+  flex: 1 1 280px;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--stone);
+  background: var(--warm-white);
+  transition: -webkit-transform .4s, box-shadow .4s;
+  transition: transform .4s, box-shadow .4s;
+}
+.program-card:hover {
+  -webkit-transform: translateY(-6px);
+  transform: translateY(-6px);
+  box-shadow: 0 24px 60px rgba(0,0,0,.1);
+}
+.program-card__img { width: 100%; overflow: hidden; }
+.program-card__img-ratio {
+  width: 100%;
+  padding-bottom: 75%; /* 4:3 */
+  position: relative;
+}
+.program-card__img-inner {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  transition: -webkit-transform .6s ease;
+  transition: transform .6s ease;
+}
+.program-card:hover .program-card__img-inner {
+  -webkit-transform: scale(1.04);
+  transform: scale(1.04);
+}
+.prog-1 .program-card__img-inner { background: linear-gradient(145deg,#8fa68a 0%,#a8c4a2 40%,#c2d8c0 100%); }
+.prog-2 .program-card__img-inner { background: linear-gradient(145deg,#7a9e9a 0%,#9abcb8 40%,#b8d0ce 100%); }
+.prog-3 .program-card__img-inner { background: linear-gradient(145deg,#9a9e8a 0%,#b8bcaa 40%,#d0d4c8 100%); }
+
+.program-card__body { padding: 28px; }
+.program-num {
+  font-family: var(--font-brand);
+  font-size: 10px;
+  letter-spacing: .35em;
+  color: var(--sage);
+  text-transform: uppercase;
+}
+.program-name {
+  font-family: var(--font-ko);
+  font-size: 19px;
+  font-weight: 500;
+  color: var(--text-dark);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+.program-name-en {
+  font-family: var(--font-brand);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: .16em;
+  color: var(--teal-dust);
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+.program-desc {
+  font-family: var(--font-ko);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text-mid);
+  line-height: 2;
+  margin-top: 14px;
+}
+.program-detail {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--stone);
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  gap: 8px;
+}
+.detail-row {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: baseline;
+  align-items: baseline;
+  gap: 12px;
+}
+.detail-label {
+  font-family: var(--font-body-en);
+  font-size: 10px;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  min-width: 48px;
+}
+.detail-value {
+  font-family: var(--font-ko);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text-mid);
+}
+
+/* ══ CLOSING ══ */
+.closing {
+  position: relative;
+  background: linear-gradient(160deg,#6b8768 0%,#7d9e78 50%,#8fa68a 100%);
+  padding: 100px 48px;
+  text-align: center;
+  overflow: hidden;
+}
+.closing-bg-text {
+  position: absolute;
+  font-family: var(--font-brand);
+  font-size: clamp(80px, 18vw, 240px);
+  font-weight: 700;
+  letter-spacing: .1em;
+  color: rgba(255,255,255,.06);
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  white-space: nowrap;
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.closing-content {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.closing-label {
+  font-family: var(--font-brand);
+  font-size: 10px;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.55);
+  margin-bottom: 20px;
+}
+.closing-title {
+  font-family: var(--font-ko);
+  font-size: clamp(24px, 5vw, 44px);
+  font-weight: 400;
+  color: #fff;
+  line-height: 1.6;
+}
+.closing-sub {
+  font-family: var(--font-ko);
+  font-size: 15px;
+  font-weight: 300;
+  color: rgba(255,255,255,.7);
+  margin-top: 20px;
+  line-height: 1.9;
+}
+.closing-contact {
+  margin-top: 48px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+.contact-item { text-align: center; }
+.contact-type {
+  font-family: var(--font-body-en);
+  font-size: 10px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.45);
+  margin-bottom: 6px;
+}
+.contact-val {
+  font-family: var(--font-brand);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: .04em;
+  color: rgba(255,255,255,.85);
+}
+
+/* ══ FOOTER ══ */
+.footer {
+  background: var(--text-dark);
+  padding: 28px 48px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-logo {
+  font-family: var(--font-brand);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .22em;
+  color: rgba(255,255,255,.5);
+}
+.footer-copy {
+  font-family: var(--font-ko);
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(255,255,255,.35);
+  letter-spacing: .03em;
+}
+
+/* ══ 애니메이션 ══ */
+@-webkit-keyframes fadeUp {
+  from { opacity: 0; -webkit-transform: translateY(24px); transform: translateY(24px); }
+  to   { opacity: 1; -webkit-transform: translateY(0); transform: translateY(0); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@-webkit-keyframes scrollPulse {
+  0%, 100% { opacity: .5; }
+  50%       { opacity: 1; }
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: .5; }
+  50%       { opacity: 1; }
+}
+
+.reveal {
+  opacity: 0;
+  -webkit-transform: translateY(28px);
+  transform: translateY(28px);
+  transition: opacity .8s ease, -webkit-transform .8s ease;
+  transition: opacity .8s ease, transform .8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: .1s; }
+.reveal-delay-2 { transition-delay: .2s; }
+.reveal-delay-3 { transition-delay: .3s; }
+
+/* ══ 반응형 — 태블릿 ══ */
+@media (max-width: 900px) {
+  section { padding: 80px 32px; }
+  .brand-intro { padding: 80px 32px; gap: 40px; }
+  .team { padding: 80px 32px; }
+  .programs { padding: 80px 32px; }
+  .closing { padding: 80px 32px; }
+  .footer { padding: 24px 32px; }
+  .nav { padding: 0 24px; }
+
+  .brand-values { padding: 60px 32px; }
+  .value-item { -webkit-flex: 1 1 45%; flex: 1 1 45%; }
+}
+
+/* ══ 반응형 — 모바일 ══ */
+@media (max-width: 640px) {
+  section { padding: 64px 20px; }
+
+  .nav { padding: 0 20px; height: 56px; }
+  .nav-logo { font-size: 14px; }
+  .nav-links { gap: 16px; }
+  .nav-links a { font-size: 11px; }
+
+  /* 커버 */
+  .cover-eyebrow { font-size: 10px; margin-bottom: 20px; }
+  .cover-tagline { margin-top: 28px; }
+
+  /* 브랜드 인트로 — 세로 배치 */
+  .brand-intro {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    padding: 64px 20px;
+    gap: 40px;
+  }
+  .brand-intro__visual {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  .brand-intro__badge {
+    right: 0;
+    top: 20px;
+    font-size: 9px;
+    padding: 10px 14px;
+  }
+  .brand-intro__quote { font-size: 16px; }
+
+  /* 밸류 */
+  .brand-values { padding: 56px 20px; }
+  .value-item { -webkit-flex: 1 1 100%; flex: 1 1 100%; padding: 28px 20px; }
+
+  /* 팀 */
+  .team { padding: 64px 20px; }
+  .team__header { margin-bottom: 48px; }
+
+  .profile-full,
+  .profile-full--alt {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    padding: 28px 20px;
+    gap: 28px;
+    margin-bottom: 32px;
+  }
+  .profile-full__photo-col {
+    -webkit-flex: none;
+    flex: none;
+    width: 100%;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    gap: 20px;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+  }
+  .profile-photo-frame {
+    width: 120px;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+  }
+  .profile-photo-ratio { padding-bottom: 133%; }
+  .photo-placeholder-text { font-size: 28px; }
+  .profile-full__sns-col { -webkit-justify-content: flex-start; justify-content: flex-start; }
+
+  .profile-full__header {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .profile-full__name-ko { font-size: 24px; }
+  .profile-full__roles { -webkit-justify-content: flex-start; justify-content: flex-start; }
+
+  .profile-list--two-col li { width: 100%; }
+
+  /* 프로그램 */
+  .programs { padding: 64px 20px; }
+  .programs__header { margin-bottom: 48px; }
+  .programs__grid { gap: 20px; }
+  .program-card { -webkit-flex: 1 1 100%; flex: 1 1 100%; }
+
+  /* 클로징 */
+  .closing { padding: 72px 20px; }
+  .closing-contact { gap: 24px; }
+
+  /* 푸터 */
+  .footer {
+    padding: 20px;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ COVER ══ -->
+<section class="cover" id="home">
+  <div class="cover-lines"></div>
+  <div class="cover-content">
+    <p class="cover-eyebrow">Brand Proposal 2026</p>
+    <h1 class="cover-logo en-brand">BORIH</h1>
+    <p class="cover-sub en-brand">The Art of Being</p>
+    <p class="cover-tagline">웰니스를 향한 지속가능한 삶의 루틴,<br />라이프스타일을 공유합니다</p>
+  </div>
+  <div class="cover-scroll">
+    <span class="en-body">Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ══ NAV ══ -->
+<nav class="nav">
+  <span class="nav-logo en-brand">BORIH</span>
+  <ul class="nav-links">
+    <li><a href="#brand">브랜드 소개</a></li>
+    <li><a href="#team">팀 프로필</a></li>
+    <li><a href="#programs">프로그램</a></li>
+    <li><a href="#contact">문의</a></li>
+  </ul>
+</nav>
+
+<!-- ══ BRAND INTRO ══ -->
+<div class="brand-intro-wrap" id="brand">
+  <div class="brand-intro">
+    <div class="brand-intro__visual reveal">
+      <div class="brand-intro__visual-ratio">
+        <div class="brand-intro__visual-inner">
+          <span class="brand-intro__visual-text">B</span>
+        </div>
+      </div>
+      <div class="brand-intro__badge en-brand">The Art of Being</div>
+    </div>
+    <div class="brand-intro__text">
+      <p class="section-label reveal">About BORIH</p>
+      <h2 class="section-title reveal reveal-delay-1">보리,<br />고요한 삶의 리듬</h2>
+      <div class="divider reveal reveal-delay-2"></div>
+      <blockquote class="brand-intro__quote reveal reveal-delay-2">
+        보리는 가장 강인한 곡식이자,<br />
+        깨달음을 뜻하는 보디(Bodhi)의 울림을 담은 이름입니다.
+      </blockquote>
+      <p class="section-body reveal reveal-delay-3">
+        보리는 혹독한 겨울을 온몸으로 버티며 땅 속 깊이 뿌리를 내립니다.
+        봄이 오면 가장 먼저 대지를 파랗게 물들입니다.
+        쌀이 귀하던 시절엔 허기를 달래주었고, 거두는 손마다 기쁨이 되어주었습니다.<br /><br />
+        BORIH는 그 생명력에서 시작합니다.
+        고요한 아침의 차 한 잔, 천천히 읽어 내려가는 책 한 권, 숨을 고르며 내딛는 발걸음.
+        작은 루틴과 리추얼을 쌓아가며 시련을 견딘 자리에서
+        우리 안의 보디(Bodhi), 깨달음이 피어납니다.
+      </p>
+      <div class="brand-intro__keywords reveal reveal-delay-3">
+        <span class="keyword-tag">Tea Culture</span>
+        <span class="keyword-tag">Slow Life</span>
+        <span class="keyword-tag">Mindfulness</span>
+        <span class="keyword-tag">Community</span>
+        <span class="keyword-tag">Ritual</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ BRAND VALUES ══ -->
+<div class="brand-values" id="values">
+  <div class="brand-values__grid">
+    <div class="value-item reveal">
+      <p class="value-num">01</p>
+      <h3 class="value-title en-brand">Slow Ritual</h3>
+      <p class="value-desc">서두르지 않는 루틴. 매일의 작은 의식이 삶의 질을 바꿉니다.</p>
+    </div>
+    <div class="value-item reveal reveal-delay-1">
+      <p class="value-num">02</p>
+      <h3 class="value-title en-brand">Sensory Care</h3>
+      <p class="value-desc">향, 맛, 질감, 소리 — 오감을 깨우는 감각적 웰니스.</p>
+    </div>
+    <div class="value-item reveal reveal-delay-2">
+      <p class="value-num">03</p>
+      <h3 class="value-title en-brand">Deep Quiet</h3>
+      <p class="value-desc">소음을 걷어낸 자리에 남는 것. 진짜 나와 만나는 고요.</p>
+    </div>
+    <div class="value-item reveal reveal-delay-3">
+      <p class="value-num">04</p>
+      <h3 class="value-title en-brand">Active Body</h3>
+      <p class="value-desc">달리고, 걷고, 숨 쉬는 몸. 움직임 속에서 찾는 또 다른 명상.</p>
+    </div>
+    <div class="value-item reveal reveal-delay-3">
+      <p class="value-num">05</p>
+      <h3 class="value-title en-brand">Together</h3>
+      <p class="value-desc">혼자이지만 함께. 같은 감각을 나누는 글로벌 커뮤니티.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TEAM ══ -->
+<section class="team" id="team">
+  <div class="team__header">
+    <p class="section-label reveal">Our Team</p>
+    <h2 class="section-title reveal reveal-delay-1">BORIH를 만드는 사람들</h2>
+  </div>
+
+  <!-- 임영하 -->
+  <article class="profile-full reveal">
+    <div class="profile-full__photo-col">
+      <div class="profile-photo-frame">
+        <div class="profile-photo-ratio">
+          <div class="profile-photo-placeholder" style="background:linear-gradient(145deg,#9a9e8a,#b8bcaa);">
+            <span class="photo-placeholder-text en-brand">YH</span>
+            <span class="photo-upload-hint">사진을 여기에</span>
+          </div>
+        </div>
+      </div>
+      <div class="profile-full__sns-col">
+        <p class="sns-label en-body">Links</p>
+        <a class="sns-link" href="#" target="_blank">@borih.official</a>
+        <a class="sns-link" href="#" target="_blank">nomad.tribe</a>
+      </div>
+    </div>
+    <div class="profile-full__info">
+      <div class="profile-full__header">
+        <div>
+          <h3 class="profile-full__name-ko">임영하</h3>
+          <p class="profile-full__name-en en-brand">Youngha Im</p>
+        </div>
+        <div class="profile-full__roles">
+          <span class="role-badge">트렌드 전략가</span>
+          <span class="role-badge">노마드 트라이브 디렉터</span>
+          <span class="role-badge">BORIH Co-founder</span>
+        </div>
+      </div>
+      <div class="profile-full__divider"></div>
+      <div class="profile-section-block">
+        <p class="profile-section-title">Education</p>
+        <ul class="profile-list">
+          <li>성균관대학교 사학과 · 산업심리학 학사</li>
+          <li>성균관대학교 소비자심리학 석사</li>
+          <li>낯선대학C 1기</li>
+        </ul>
+      </div>
+      <div class="profile-section-block">
+        <p class="profile-section-title">Publication</p>
+        <ul class="profile-list">
+          <li>『My Morning View : 나의 아침 시선을 담은 일기장』 — 2017</li>
+          <li>『나의 새벽은 차 한잔으로 시작된다』 — 2024</li>
+          <li>사내 대외비 매거진 기획 및 출간</li>
+        </ul>
+      </div>
+      <div class="profile-section-block">
+        <p class="profile-section-title">Career &amp; Expertise</p>
+        <ul class="profile-list profile-list--two-col">
+          <li>현 대기업 트렌드 전략 업무 (부장)</li>
+          <li>노마드 트라이브(nomad.tribe) 디렉터</li>
+          <li>한국 차살림 동다살림법 시자</li>
+          <li>티소믈리에 자격</li>
+          <li>트레바리 차와 인사이트 클럽장</li>
+          <li>구글 명상 SIY 리더십 프로그램 수료</li>
+          <li>MKYU NFT Business Club 수료</li>
+          <li>서울대학교 소비트렌드분석센터 트렌더스날</li>
+          <li>위즈덤2.0 '잘 먹고 잘 사는 법' 연사</li>
+          <li>디자인살롱 · 웰니스 트렌드 컨퍼런스 강연</li>
+          <li>언론사 · 외부 컨퍼런스 강연 및 인터뷰 다수</li>
+          <li>마음챙김 · Design Thinking 대내외 강의 다수</li>
+        </ul>
+      </div>
+      <div class="profile-full__tags">
+        <span class="profile-tag">트렌드 전략</span>
+        <span class="profile-tag">소비자심리</span>
+        <span class="profile-tag">차 문화</span>
+        <span class="profile-tag">마음챙김</span>
+        <span class="profile-tag">리더십</span>
+        <span class="profile-tag">웰니스 라이프</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 장은진 -->
+  <article class="profile-full profile-full--alt reveal reveal-delay-1">
+    <div class="profile-full__photo-col">
+      <div class="profile-photo-frame">
+        <div class="profile-photo-ratio">
+          <div class="profile-photo-placeholder" style="background:linear-gradient(145deg,#8fa68a,#7a9e9a);">
+            <span class="photo-placeholder-text en-brand">EJ</span>
+            <span class="photo-upload-hint">사진을 여기에</span>
+          </div>
+        </div>
+      </div>
+      <div class="profile-full__sns-col">
+        <p class="sns-label en-body">Links</p>
+        <a class="sns-link" href="#" target="_blank">@borih.official</a>
+      </div>
+    </div>
+    <div class="profile-full__info">
+      <div class="profile-full__header">
+        <div>
+          <h3 class="profile-full__name-ko">장은진</h3>
+          <p class="profile-full__name-en en-brand">Eunjin Chang</p>
+        </div>
+        <div class="profile-full__roles">
+          <span class="role-badge">작가</span>
+          <span class="role-badge">작은기윤재 대표</span>
+          <span class="role-badge">BORIH Co-founder</span>
+        </div>
+      </div>
+      <div class="profile-full__divider"></div>
+      <div class="profile-section-block">
+        <p class="profile-section-title">Education</p>
+        <ul class="profile-list">
+          <li>숙명여자대학교 의류학과 · 경영학과 학사</li>
+          <li>런던 브루넬대학교 디자인 전략과 혁신 석사<br />
+            <span class="profile-list-sub en-body">MA Design Strategy &amp; Innovation, Brunel University London</span>
+          </li>
+        </ul>
+      </div>
+      <div class="profile-section-block">
+        <p class="profile-section-title">Publication</p>
+        <ul class="profile-list">
+          <li>『집이 나에게 물어온 것들』 — 퍼블리온, 2023<br />
+            <span class="profile-list-sub">한국출판문화산업진흥원 '2023년 중소출판사 출판콘텐츠 창작 지원 사업' 선정작</span>
+          </li>
+        </ul>
+      </div>
+      <div class="profile-section-block">
+        <p class="profile-section-title">Tea &amp; Wellness</p>
+        <ul class="profile-list profile-list--two-col">
+          <li>작은기윤재 운영</li>
+          <li>현 한국티인스트럭터협회(TIDA) 이사</li>
+          <li>티인스트럭터 자격</li>
+          <li>티소믈리에 자격</li>
+          <li>한국전통다도예절지도사 자격</li>
+          <li>티소믈리에 전문교육기관(TSEI) 운영 자격</li>
+          <li>이화여대 평생교육원 강의</li>
+          <li>티인스트럭터 대상 특강</li>
+          <li>계원예대 특강</li>
+          <li>구립건강지원센터 강의</li>
+          <li>유니세프 후원자 페스티벌 티클래스 운영</li>
+          <li>오늘의집 오하우스 차명상 클래스 운영</li>
+          <li>기업체 강의 지원</li>
+        </ul>
+      </div>
+      <div class="profile-full__tags">
+        <span class="profile-tag">인문 에세이</span>
+        <span class="profile-tag">차 문화</span>
+        <span class="profile-tag">디자인 전략</span>
+        <span class="profile-tag">티인스트럭터</span>
+        <span class="profile-tag">웰니스 라이프</span>
+        <span class="profile-tag">기윤재</span>
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- ══ PROGRAMS ══ -->
+<section class="programs" id="programs">
+  <div class="programs__header">
+    <p class="section-label reveal">Our Programs</p>
+    <h2 class="section-title reveal reveal-delay-1">BORIH의 세 가지 이야기</h2>
+    <div class="divider reveal reveal-delay-2"></div>
+    <p class="section-body reveal reveal-delay-2">
+      차, 글, 그리고 몸과 마음 — 세 가지 결로 엮어가는 BORIH의 웰니스 프로그램입니다.
+    </p>
+  </div>
+  <div class="programs__grid">
+    <div class="program-card prog-1 reveal">
+      <div class="program-card__img">
+        <div class="program-card__img-ratio">
+          <div class="program-card__img-inner"></div>
+        </div>
+      </div>
+      <div class="program-card__body">
+        <p class="program-num en-brand">Program 01</p>
+        <h3 class="program-name"></h3>
+        <p class="program-name-en en-brand"></p>
+        <p class="program-desc"></p>
+        <div class="program-detail">
+          <div class="detail-row"><span class="detail-label en-body">Format</span><span class="detail-value"></span></div>
+          <div class="detail-row"><span class="detail-label en-body">Target</span><span class="detail-value"></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="program-card prog-2 reveal reveal-delay-1">
+      <div class="program-card__img">
+        <div class="program-card__img-ratio">
+          <div class="program-card__img-inner"></div>
+        </div>
+      </div>
+      <div class="program-card__body">
+        <p class="program-num en-brand">Program 02</p>
+        <h3 class="program-name"></h3>
+        <p class="program-name-en en-brand"></p>
+        <p class="program-desc"></p>
+        <div class="program-detail">
+          <div class="detail-row"><span class="detail-label en-body">Format</span><span class="detail-value"></span></div>
+          <div class="detail-row"><span class="detail-label en-body">Target</span><span class="detail-value"></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="program-card prog-3 reveal reveal-delay-2">
+      <div class="program-card__img">
+        <div class="program-card__img-ratio">
+          <div class="program-card__img-inner"></div>
+        </div>
+      </div>
+      <div class="program-card__body">
+        <p class="program-num en-brand">Program 03</p>
+        <h3 class="program-name"></h3>
+        <p class="program-name-en en-brand"></p>
+        <p class="program-desc"></p>
+        <div class="program-detail">
+          <div class="detail-row"><span class="detail-label en-body">Format</span><span class="detail-value"></span></div>
+          <div class="detail-row"><span class="detail-label en-body">Target</span><span class="detail-value"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CLOSING ══ -->
+<section class="closing" id="contact">
+  <div class="closing-bg-text">BORIH</div>
+  <div class="closing-content">
+    <p class="closing-label en-brand">Get in Touch</p>
+    <h2 class="closing-title">보리의 가치에 공명할<br />파트너와의 만남을 고대합니다.</h2>
+    <div class="closing-contact">
+      <div class="contact-item">
+        <p class="contact-type en-body">Instagram</p>
+        <p class="contact-val en-brand">@borih.official</p>
+      </div>
+      <div class="contact-item">
+        <p class="contact-type en-body">Space</p>
+        <p class="contact-val en-brand">@little_kiyoonjae</p>
+      </div>
+      <div class="contact-item">
+        <p class="contact-type en-body">Email</p>
+        <p class="contact-val en-brand">borih.official<br />@gmail.com</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+  <span class="footer-logo en-brand">BORIH</span>
+  <span class="footer-copy">겨울을 이겨낸 보리처럼, 강인하고 유연한 삶의 미학을 당신과 함께.</span>
+</footer>
+
+<script>
+(function() {
+  var els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    els.forEach(function(el) { observer.observe(el); });
+  } else {
+    /* IntersectionObserver 미지원 구형 브라우저 — 전부 보이게 */
+    els.forEach(function(el) { el.classList.add('visible'); });
+  }
+})();
+</script>
+</body>
+</html>
